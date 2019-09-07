@@ -8,6 +8,10 @@ from keras.models import Model
 from keras.layers import Dense, Conv2D, MaxPooling2D, Dropout, Flatten, Input, concatenate
 from nn_models.base_nn_model import BaseNNModel
 import numpy as np
+import time
+from keras.callbacks import TensorBoard
+import settings
+from experiments.base_experiment import Experiment
 
 class Model01(BaseNNModel):
     """
@@ -31,16 +35,24 @@ class Model01(BaseNNModel):
 
     @property
     def name(self):
-        return "Model01"
+        return "Model01--Layers" + str(self.hidden_layer_sizes).replace("[", "").replace("]", "").replace(" ", "").replace(",", ".")
 
     def fit(self, inputs, outputs, epochs=1, verbose=1):
+        log_dir = settings.DEFAULT_TENSOR_BOARD_LOG_FOLDER +\
+                  Experiment.last_run_experiment +\
+                  self.name
+        tensorboard = TensorBoard(log_dir=log_dir)
         return self._internal_keras_model.fit(inputs,
                                               outputs,
                                               epochs=epochs,
-                                              verbose=verbose)
+                                              verbose=verbose,
+                                              callbacks=[tensorboard])
 
     def predict(self, inputs):
         return np.round(self._internal_keras_model.predict(inputs))
+
+    def score(self, inputs):
+        return self._internal_keras_model.predict(inputs)
 
     @property
     def metric_names(self):

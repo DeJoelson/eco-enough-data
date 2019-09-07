@@ -77,7 +77,7 @@ class BaseNNModel(ABC):
 
         if file_location is None:
             file_location = settings.DEFAULT_MODEL_VISUALIZATION_FOLDER
-            file_location += self.name + str(datetime.datetime.now()).replace(":", "-") + ".png"
+            file_location += self.name + "--" + str(datetime.datetime.now()).replace(":", "-") + ".png"
 
         keras.utils.plot_model(self.internal_model, to_file=file_location, show_shapes=True)
 
