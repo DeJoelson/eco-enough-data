@@ -13,6 +13,8 @@ class Experiment(ABC):
     Provides a standard base for experiment conducting.
     """
 
+    last_run_experiment = None
+
     def __init__(self, log_file_location=None):
         self._log_file_location = log_file_location
         self.timestamp = datetime.datetime.now()
@@ -20,6 +22,7 @@ class Experiment(ABC):
         self.had_error_on_run = None
         self.logger = None
         self.is_running = False
+        self.__name = None
 
     @abstractmethod
     def _experiment(self):
@@ -49,6 +52,7 @@ class Experiment(ABC):
         This method logs the information in a custom file.
         :return: None
         """
+        Experiment.last_run_experiment = self.name
         self._initialize_logger()
         self.logger.info('Experiment Name: %s', self.name)
         self.logger.info('DateTime: %s', datetime.datetime.now())
@@ -95,9 +99,11 @@ class Experiment(ABC):
         Get the name of the experiment.
         :return: The name of the experiment.
         """
-        datetime_string = self.timestamp.strftime("%Y-%m-%d--%H-%M-%S")
-        name = datetime_string + "---" + str(self.__class__.__name__)
-        return name
+        if self.__name is None:
+            datetime_string = self.timestamp.strftime("%Y-%m-%d--%H-%M-%S")
+            name = datetime_string + "---" + str(self.__class__.__name__)
+            self.__name = name
+        return self.__name
 
     def log(self, message):
         """
