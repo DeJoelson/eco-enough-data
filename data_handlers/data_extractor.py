@@ -44,7 +44,7 @@ class DataExtractor:
             latitude=float(components[3]),
             longitude=float(components[4]),
             state=components[5],
-            doy=int(components[6]),
+            doy=components[6],
             cat_area_sq_km=float(components[7]),
             hydrl_cond_cat=float(components[8]),
             mean_msst=float(components[9]),
