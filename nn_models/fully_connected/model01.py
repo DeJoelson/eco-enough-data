@@ -61,5 +61,3 @@ class Model01(BaseNNModel):
     def evaluate(self, inputs, true_outputs):
         pred_outputs = self.predict(inputs)
         return np.mean(pred_outputs == true_outputs)
-
-

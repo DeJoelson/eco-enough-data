@@ -58,6 +58,3 @@ class DefaultDataModel:
         self.is_caenis_present = is_caenis_present
         self.is_tricorythodes_present = is_tricorythodes_present
         self.is_centroptilum_procloeon_present = is_centroptilum_procloeon_present
-
-
-
