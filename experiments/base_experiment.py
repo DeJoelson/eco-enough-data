@@ -114,3 +114,24 @@ class Experiment(ABC):
         :return: The output of the logger.
         """
         return self.logger.error(error_message)
+
+    def add_csv_entry(self, list_of_entries, filename=None):
+        """
+        Appends a line to a CSV file
+        :param list_of_entries: Each entry in list_of_entries will be added to the CSV file.
+        :param filename: The name of the CSV file.
+        :return: None
+        """
+        try:
+            if filename is None:
+                filename = settings.DEFAULT_RESULTS_FOLDER + self.name + ".csv"
+            with open(filename, "a") as csv_file:
+                entry_count = len(list_of_entries)
+                for index, entry in enumerate(list_of_entries):
+                    if index + 1 == entry_count:
+                        csv_file.write(str(entry) + "\n")
+                    else:
+                        csv_file.write(str(entry) + ",")
+        except:
+            self.log_error("Error Writing Entry to CSV File")
+

@@ -20,11 +20,12 @@ class Model01(BaseNNModel):
 
     def __init__(self, input_count, hidden_layer_sizes=[10, 20, 10]):
         super().__init__()
+        self.hidden_layer_sizes = hidden_layer_sizes
 
         x_input = Input(shape=(input_count,), name="input_layer")
 
         x = x_input
-        for hidden_layer_size in hidden_layer_sizes:
+        for hidden_layer_size in self.hidden_layer_sizes:
             x = Dense(hidden_layer_size, activation='relu')(x)
             x = Dropout(0.5)(x)
 
