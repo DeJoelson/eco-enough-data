@@ -1,8 +1,10 @@
-
+# Don't Include IDE and Python Temp Files
 \.idea/
-
-.csv
-.png
-.log
-
 __pycache__/
+
+# Don't Include Possible Experiment Output
+**/*.log
+**/*.png
+**/*.csv
+logs/tensorboard_logs/*
+!logs/tensorboard_logs/.gitkeep
