@@ -24,7 +24,7 @@ class Experiment01(Experiment):
         Internal Settings
         """
 
-        epochs_to_use = 1
+        epochs_to_use = 500
         max_layers_to_have = 5
         max_nodes_in_layer = 100
         min_nodes_in_layer = 2
@@ -68,8 +68,8 @@ class Experiment01(Experiment):
             self.log("Working on number " + str(index) + " of " + str(len(layer_configurations)) + "; " + str(round(((index / len(layer_configurations)) * 100))) + "%")
             model = Model01(input_count=number_of_predictors, hidden_layer_sizes=layer_configuration)
             self.log("Model used in this experiment: " + str(model.name))
-            self.log("Saving Neural Network Model Visualization")
-            model.save_model_visualization()
+            # self.log("Saving Neural Network Model Visualization")
+            # model.save_model_visualization()
             self.log("Model beginning training")
 
             model.fit(x_train, y_train, epochs=epochs_to_use, verbose=10)
