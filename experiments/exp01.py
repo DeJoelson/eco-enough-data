@@ -24,13 +24,14 @@ class Experiment01(Experiment):
         Internal Settings
         """
 
-        epochs_to_use = 500
+        epochs_to_use = 100
         max_layers_to_have = 5
         max_nodes_in_layer = 100
         min_nodes_in_layer = 2
+        max_number_configurations = 1000
 
         self.log("Generating Layers to Evaluate.")
-        layer_configurations = self._get_layers_to_evaluate(min_nodes_in_layer, max_nodes_in_layer, max_layers_to_have)
+        layer_configurations = self._get_layers_to_evaluate(min_nodes_in_layer, max_nodes_in_layer, max_layers_to_have, max_number_configurations)
         self.log("Layer Configuration Count: " + str(len(layer_configurations)))
 
 
@@ -79,7 +80,7 @@ class Experiment01(Experiment):
             self.log("Writing Results to CSV")
             self._write_metrics_to_csv(model, epochs_to_use, data_loader_function_outputs, max_layers_to_have, x_train, y_train, x_test, y_test)
 
-    def _get_layers_to_evaluate(self, min_nodes_in_layer, max_nodes_in_layer, max_layers_to_have, max_number_configurations=10000):
+    def _get_layers_to_evaluate(self, min_nodes_in_layer, max_nodes_in_layer, max_layers_to_have, max_number_configurations):
         from itertools import permutations
         import numpy as np
 
